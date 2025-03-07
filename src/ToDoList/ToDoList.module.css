@@ -1,0 +1,17 @@
+.list {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  background-color: rgb(247, 247, 247);
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.listItem {
+  padding: 4px;
+  border: 1px solid lightgray;
+  border-radius: 4px;
+}
