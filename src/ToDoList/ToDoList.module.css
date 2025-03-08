@@ -10,8 +10,14 @@
   width: 100%;
 }
 
-.listItem {
-  padding: 4px;
-  border: 1px solid lightgray;
+.searchBlock {
+  margin-bottom: 12px;
+  display: flex;
+  gap: 20px;
+}
+
+.searchInput {
+  padding: 8px 20px;
+  border: 1px solid gray;
   border-radius: 4px;
 }
