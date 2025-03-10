@@ -50,8 +50,8 @@ export function App() {
     <div className={styles.app}>
       <div className={styles.appContainer}>
         <header className={styles.header}>
-          <input className={styles.addInput} type="text" onChange={onAddInputChange} value={inputText} />
-          <Button onClick={addToDo} disabled={isCreating}>Добавить</Button>
+          <input className={styles.addInput} type="text" onChange={onAddInputChange} value={inputText} placeholder='Добавьте задачу' />
+          <Button onClick={addToDo} disabled={isCreating} className={styles.addButton}>Добавить</Button>
         </header>
         {isLoading
           ? <div className='loader'>Loading...</div>

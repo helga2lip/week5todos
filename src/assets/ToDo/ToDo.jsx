@@ -38,7 +38,7 @@ export function ToDo(props) {
 
   return <li className={styles.listItem}>
     <div className={styles.todoText}>{props.todo.title}</div>
-    <Button onClick={editToDo} disabled={isUpdating}>Редактировать</Button>
-    <Button onClick={deleteToDo} disabled={isDeleting}>Удалить</Button>
+    <Button onClick={editToDo} disabled={isUpdating} className={styles.editButton}>Редактировать</Button>
+    <Button onClick={deleteToDo} disabled={isDeleting} className={styles.deleteButton}>Удалить</Button>
   </li>
 }
