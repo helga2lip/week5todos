@@ -47,7 +47,12 @@ export function ToDoList(props) {
     </div>
     <ul className={styles.list}>
       {resultTodos.map((todo) => {
-        return <ToDo key={todo.id} todo={todo} onDeleteToDo={props.onDeleteToDo} />
+        return <ToDo key={todo.id}
+          todo={todo}
+          onDeleteToDo={props.onDeleteToDo}
+          onEditToDo={props.onEditToDo}
+          isDeleting={props.isDeleting}
+          isUpdating={props.isUpdating} />
       })}
     </ul>
   </>

@@ -9,6 +9,8 @@ export function App() {
   const [inputText, setInputText] = useState('');
   const [isCreating, setIsCreating] = useState(false);
   const [refreshToDos, setRefreshToDos] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [isUpdating, setIsUpdating] = useState(false);
 
   useEffect(() => {
     setIsLoading(true);
@@ -38,12 +40,37 @@ export function App() {
       .finally(() => setIsCreating(false));
   }
 
-  const onAddInputChange = (event) => {
-    setInputText(event.target.value);
+  const editToDo = (id) => {
+    const newTodoTitle = prompt('Отредактируйте задачу', '')
+
+    fetch(`http://localhost:3005/todos/${id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json;charset=utf-8' },
+      body: JSON.stringify({
+        id: id,
+        title: newTodoTitle,
+      }),
+    })
+      .then(() => {
+        setRefreshToDos(!refreshToDos);
+      })
+      .finally(() => setIsUpdating(false));
   }
 
-  const onDeleteToDo = () => {
-    setRefreshToDos(!refreshToDos);
+  const deleteToDo = (id) => {
+    setIsDeleting(true);
+
+    fetch(`http://localhost:3005/todos/${id}`, {
+      method: 'DELETE',
+    })
+      .then(() => {
+        setRefreshToDos(!refreshToDos);
+      })
+      .finally(() => setIsDeleting(false));
+  }
+
+  const onAddInputChange = (event) => {
+    setInputText(event.target.value);
   }
 
   return (
@@ -55,7 +82,7 @@ export function App() {
         </header>
         {isLoading
           ? <div className='loader'>Loading...</div>
-          : <ToDoList todos={todos} onDeleteToDo={onDeleteToDo} />
+          : <ToDoList todos={todos} onDeleteToDo={deleteToDo} onEditToDo={editToDo} isDeleting={isDeleting} isUpdating={isUpdating} />
         }
       </div>
     </div>
