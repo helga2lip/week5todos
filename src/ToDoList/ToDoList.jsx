@@ -1,52 +1,29 @@
-import { useState } from 'react';
 import { ToDo } from '../assets/todo/todo'
 import { Button } from '../Button/Button'
 import styles from './ToDoList.module.css'
 
 export function ToDoList(props) {
-  const [inputText, setInputText] = useState('');
-  const [filteredTodos, setFilteredTodos] = useState(props.todos);
-  const [isSorted, setIsSorted] = useState(false);
 
   const onSearchClick = () => {
-    setFilteredTodos(props.todos.filter((todo) => {
-      return todo.title.includes(inputText)
-    }))
+    props.onFilterToDo();
   }
 
   const onSearchInputChange = (event) => {
-    setInputText(event.target.value);
+    props.setFilterText(event.target.value);
   }
 
   const onSortClick = () => {
-    setIsSorted(!isSorted)
-  }
-
-  let resultTodos;
-  console.log('calc result');
-
-  if (isSorted) {
-    resultTodos = [...filteredTodos].sort((a, b) => {
-      if (a.title.toLowerCase() < b.title.toLowerCase()) {
-        return -1;
-      }
-      if (a.title.toLowerCase() > b.title.toLowerCase()) {
-        return 1;
-      }
-      return 0;
-    });
-  } else {
-    resultTodos = filteredTodos;
+    props.onSortToDo()
   }
 
   return <>
     <div className={styles.searchBlock}>
-      <input className={styles.searchInput} type="text" onChange={onSearchInputChange} value={inputText} placeholder='Введите задачу' />
+      <input className={styles.searchInput} type="text" onChange={onSearchInputChange} value={props.filterText} placeholder='Введите задачу' />
       <Button onClick={onSearchClick} className={styles.searchButton}>Поиск</Button>
-      <Button onClick={onSortClick} className={isSorted ? styles.buttonSortedActive : styles.buttonSorted}>Отсортировать по алфавиту</Button>
+      <Button onClick={onSortClick} className={props.isSorted ? styles.buttonSortedActive : styles.buttonSorted}>Отсортировать по алфавиту</Button>
     </div>
     <ul className={styles.list}>
-      {resultTodos.map((todo) => {
+      {props.todos.map((todo) => {
         return <ToDo key={todo.id}
           todo={todo}
           onDeleteToDo={props.onDeleteToDo}
